@@ -1,0 +1,13 @@
+{
+  "name": "verge-dashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:vergecurrency/verge-dashboard.git",
+  "author": "marplezdev <kk@kk.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^1.7.0",
+    "influx": "^5.0.0-alpha.4",
+    "verge-node-typescript": "^0.0.17"
+  }
+}
