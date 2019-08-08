@@ -8,6 +8,7 @@
   "dependencies": {
     "cron": "^1.7.0",
     "influx": "^5.0.0-alpha.4",
+    "sleep": "^6.1.0",
     "verge-node-typescript": "^0.0.17"
   }
 }

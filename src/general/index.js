@@ -1,7 +1,7 @@
 const { Client } = require('verge-node-typescript')
 const Influx = require('influx');
 const CronJob = require('cron').CronJob;
-const clientSettings = require('./credentials.json')
+const clientSettings = require('../../credentials.json')
 
 const influx = new Influx.InfluxDB({
     host: 'localhost',
