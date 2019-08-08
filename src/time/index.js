@@ -61,6 +61,9 @@ new CronJob('* * * * *', () => {
                     },
                 }
             ]).catch(console.error)
-        }).catch(console.error)
+        })
+            .then(() => console.log("Wrote points to database."))
+            .catch(console.error)
+
     }).catch(console.error)
 }, null, true, 'America/Los_Angeles')
