@@ -59,7 +59,7 @@ const influx = new Influx.InfluxDB({
             tags: ["host"]
         },
 	{
-	measurement: 'gettxoutsetinfo;,
+	measurement: 'gettxoutsetinfo',
 		fields: {
 		total_amount: Influx.FieldType.INTEGER,
 		transactions: Influx.FieldType.INTEGER,
