@@ -57,14 +57,24 @@ const influx = new Influx.InfluxDB({
                 connections: Influx.FieldType.INTEGER,
             },
             tags: ["host"]
-        }
+        },
+	{
+	measurement: 'gettxoutsetinfo',
+		fields: {
+		total_amount: Influx.FieldType.INTEGER,
+		transactions: Influx.FieldType.INTEGER,
+		txouts: Influx.FieldType.INTEGER,
+		disk_size: Influx.FieldType.INTEGER
+		},
+		tags: ["host"]
+	}
     ]
    })
    
 const client = new Client(clientSettings)
 
 new CronJob('* * * * *', () => {
-  Promise.all([ client.send('getinfo'), client.send('getmempoolinfo'), client.send('getallnetworkhashps'), client.send('getnetworkinfo')]).then(([info, mempool, hash, network]) => {
+  Promise.all([ client.send('getinfo'), client.send('getmempoolinfo'), client.send('getallnetworkhashps'), client.send('getnetworkinfo'), client.send('gettxoutsetinfo')]).then(([info, mempool, hash, network, gettxoutsetinfo]) => {
     return influx.writePoints([
         {
             measurement: 'info',
@@ -116,7 +126,17 @@ new CronJob('* * * * *', () => {
               timeoffset: network.timeoffset,
               connections: network.connections,
             },
-        }
+        },
+	{
+		measurement: 'gettxoutsetinfo',
+		tags: { host: 'verge' },
+		fields: {
+			total_amount: gettxoutsetinfo.total_amount,
+			transactions: gettxoutsetinfo.transactions,
+			txouts: gettxoutsetinfo.txouts,
+			disk_size: gettxoutsetinfo.disk_size
+		},
+	}
       ]).catch(console.error)
   }).then(() => console.log("Wrote points to database.")).catch(console.error)
 }, null, true, 'America/Los_Angeles')
